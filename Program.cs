@@ -1,10 +1,16 @@
-using DotnetBasics.Services;
+using EmployeeManagement.Data;
+using EmployeeManagement.Interfaces;
+using EmployeeManagement.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 

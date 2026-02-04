@@ -97,3 +97,23 @@ footer {
   font-size: 0.85rem;
   color: #666;
 }
+
+.search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.search-section form {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+}
+
+.filter-form select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  min-width: 200px;
+  background-color: #fff;
+}

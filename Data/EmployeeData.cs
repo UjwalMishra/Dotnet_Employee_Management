@@ -1,6 +1,6 @@
-using DotnetBasics.Models;
+using EmployeeManagement.Models;
 
-namespace DotnetBasics.Data
+namespace EmployeeManagement.Data
 {
     public static class EmployeeData
     {

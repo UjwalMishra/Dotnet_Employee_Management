@@ -1,0 +1,22 @@
+@model List<EmployeeManagement.Models.Employee>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.Name</td>
+            <td>@emp.Department</td>
+            <td>@(emp.IsActive ? "Active" : "Inactive")</td>
+            <td>
+                <a href="/Employees/Details/@emp.Id">View</a>
+            </td>
+        </tr>
+    }
+</table>

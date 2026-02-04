@@ -1,8 +1,9 @@
-@model Dictionary<string, int>
+@model List<EmployeeManagement.ViewModels.DepartmentCountViewModel>
+
 
 <h2>Employee Count by Department</h2>
 
-<table border="1" cellpadding="5">
+<table >
     <tr>
         <th>Department</th>
         <th>Total Employees</th>
@@ -11,11 +12,11 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.Key</td>
-            <td>@item.Value</td>
+            <td>@item.Department</td>
+            <td>@item.TotalEmployees</td>
         </tr>
     }
 </table>
 
 <br />
-<a href="/Employees">⬅ Back to Employees</a>
+<a href="/Employees">Back to Employees</a>

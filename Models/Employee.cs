@@ -1,4 +1,4 @@
-namespace DotnetBasics.Models
+namespace EmployeeManagement.Models
 {
     public class Employee
     {

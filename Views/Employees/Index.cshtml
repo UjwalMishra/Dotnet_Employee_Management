@@ -1,19 +1,35 @@
-@model List<DotnetBasics.Models.Employee>
+@model EmployeeManagement.ViewModels.EmployeeListViewModel
 
-<h2>Employee Directory</h2>
+@{
+    string heading = "Employee Directory";
+    bool showBackButton = false;
 
-<partial name="_SearchForm" />
-
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Department</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-
-    @foreach (var emp in Model)
+    if (!string.IsNullOrEmpty(Model.SearchTerm))
     {
-        <partial name="_EmployeeRow" model="emp" />
+        heading = $"Search Results for \"{Model.SearchTerm}\"";
+        showBackButton = true;
     }
-</table>
+    else if (Model.SelectedFilter == "Active" || Model.SelectedFilter == "Inactive")
+    {
+        heading = $"Employees - {Model.SelectedFilter}";
+        showBackButton = true;
+    }
+    else if (Model.SelectedFilter != "All" && !string.IsNullOrEmpty(Model.SelectedFilter))
+    {
+        heading = $"Employees - {Model.SelectedFilter} Department";
+        showBackButton = true;
+    }
+}
+
+<h2>@heading</h2>
+
+<partial name="_SearchAndFilter" />
+
+<partial name="_EmployeeTable" model="Model.Employees" />
+
+@if (showBackButton)
+{
+    <br />
+    <a href="/Employees"> Back to Employees</a>
+}
+

@@ -1,0 +1,20 @@
+@model EmployeeManagement.ViewModels.EmployeeListViewModel
+
+<div class="search-section">
+    <form method="get" action="/Employees/Search">
+        <input type="text" name="name" placeholder="Search employees..." value="@Model?.SearchTerm" />
+        <button type="submit">Search</button>
+    </form>
+
+    <form method="get" action="/Employees/Filter" class="filter-form">
+        <select name="option">
+            <!option value="All" @(Model?.SelectedFilter == "All" ? "selected" : "")>All</!option>
+            <!option value="Engineering" @(Model?.SelectedFilter == "Engineering" ? "selected" : "")>Engineering</!option>
+            <!option value="HR" @(Model?.SelectedFilter == "HR" ? "selected" : "")>HR</!option>
+            <!option value="Active" @(Model?.SelectedFilter == "Active" ? "selected" : "")>Active</!option>
+            <!option value="Inactive" @(Model?.SelectedFilter == "Inactive" ? "selected" : "")>Inactive</!option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+</div>
+

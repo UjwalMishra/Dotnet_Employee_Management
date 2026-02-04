@@ -1,89 +1,51 @@
-using DotnetBasics.Data;
-using DotnetBasics.Models;
+using EmployeeManagement.Data;
+using EmployeeManagement.Interfaces;
+using EmployeeManagement.Models;
 
-namespace DotnetBasics.Services
+namespace EmployeeManagement.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         public List<Employee> GetAll()
         {
-            try
-            {
-                return EmployeeData.Employees;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Failed to fetch employees.", ex);
-            }
+            return EmployeeData.Employees;
         }
 
         public Employee? GetById(int id)
         {
-            try
-            {
-                return EmployeeData.Employees
-                    .FirstOrDefault(e => e.Id == id);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Failed to fetch employee by id.", ex);
-            }
+            return EmployeeData.Employees
+                .FirstOrDefault(e => e.Id == id);
         }
 
         public List<Employee> GetByDepartment(string department)
         {
-            try
-            {
-                return EmployeeData.Employees
-                    .Where(e => e.Department == department)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Failed to fetch employees by department.", ex);
-            }
+            return EmployeeData.Employees
+                .Where(e => e.Department.Equals(department, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
 
-        public List<Employee> GetActive(bool isActive)
+        public List<Employee> GetByStatus(bool isActive)
         {
-            try
-            {
-                return EmployeeData.Employees
-                    .Where(e => e.IsActive == isActive)
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Failed to fetch active employees.", ex);
-            }
+            return EmployeeData.Employees
+                .Where(e => e.IsActive == isActive)
+                .ToList();
         }
 
         public List<Employee> Search(string name)
         {
-            try
-            {
-                return EmployeeData.Employees
-                    .Where(e => e.Name.ToLower().Contains(name.ToLower()))
-                    .ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Failed to search employees.", ex);
-            }
+            if (string.IsNullOrWhiteSpace(name))
+                return GetAll();
+
+            return EmployeeData.Employees
+                .Where(e => e.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
 
         public Dictionary<string, int> CountByDepartment()
         {
-            try
-            {
-                return EmployeeData.Employees
-                    .GroupBy(e => e.Department)
-                    .ToDictionary(g => g.Key, g => g.Count());
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Failed to count employees by department.", ex);
-            }
+            return EmployeeData.Employees
+                .GroupBy(e => e.Department)
+                .ToDictionary(g => g.Key, g => g.Count());
         }
     }
 }
